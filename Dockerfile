@@ -22,29 +22,10 @@ WORKDIR node
 RUN useradd -m -d /home/onion -p onion onion && adduser onion sudo && chsh -s /bin/bash onion
 RUN chown -R onion:onion .
 
-#USER onion
-
-#RUN ./nodejs_v0.10.5_mips_ar9331.sh
-#RUN cp feeds.conf.default feeds.conf
-#RUN echo "src-git onion https://github.com/OnionIoT/OpenWRT-Packages.git" >> feeds.conf
-#RUN echo "src-git alljoyn git://git.allseenalliance.org/gerrit/core/openwrt_feed;attitude_adjustment" >> feeds.conf
-
-#RUN ./scripts/feeds update -a
-#RUN ./scripts/feeds install python
-#RUN ./scripts/feeds install -a -p alljoyn
-#RUN ./scripts/feeds install -a -p luci
 
 # This is added as python is needed for node.js gyp formats
-#USER root
 RUN ln -s /usr/bin/python2.7 /usr/bin/python
 RUN echo 'onion:onion' | chpasswd
 USER onion
 
-#RUN make defconfig
-#RUN make prereq
-
-#ADD appendtoconfig /openwrt/appendtoconfig
-#RUN cat appendtoconfig/appendtoconfig >> .config
-# I expect some warnings from this, but it's a straightforward op
-#RUN make defconfig
-#RUN make
+RUN ./nodejs_v0.10.5_mips_ar9331.sh
